@@ -1,0 +1,35 @@
+[
+    {
+        "id": "script_001",
+        "name": "SpeedBoost",
+        "author": "xdev",
+        "description": "Multiplies walk speed by a configurable factor.",
+        "version": "1.2.0",
+        "downloadUrl": "https://github.com/BGFXTeam/hub/raw/refs/heads/master/files/scripts/SpeedBoost.lua",
+        "screenshots": [
+            "https://github.com/BGFXTeam/hub/raw/refs/heads/master/files/static/ss1.png"
+        ],
+        "tags": [
+            "movement",
+            "utility"
+        ],
+        "downloads": 1240,
+        "updatedAt": "2025-11-01"
+    },
+
+    {
+        "id": "script_002",
+        "name": "ESP",
+        "author": "znfdev",
+        "description": "Simple ESP overlay.",
+        "version": "2.0.1",
+        "downloadUrl": "https://github.com/BGFXTeam/hub/raw/refs/heads/master/files/scripts/ESP.lua",
+        "screenshots": [],
+        "tags": [
+            "visual",
+            "combat"
+        ],
+        "downloads": 845,
+        "updatedAt": "2025-12-10"
+    }
+]
