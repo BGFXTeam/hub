@@ -7,7 +7,7 @@
         "version": "1.2.0",
         "downloadUrl": "https://github.com/BGFXTeam/hub/raw/refs/heads/master/files/scripts/SpeedBoost.lua",
         "screenshots": [
-            "https://github.com/BGFXTeam/hub/raw/refs/heads/master/files/static/ss1.png"
+            "https://raw.githubusercontent.com/BGFXTeam/hub/refs/heads/main/static/ss1.png"
         ],
         "tags": [
             "movement",
