@@ -1,0 +1,1 @@
+https://raw.githubusercontent.com/BGFXTeam/hub/refs/heads/main/index.html

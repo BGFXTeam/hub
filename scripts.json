@@ -1,35 +1,29 @@
 [
     {
-        "id": "script_001",
-        "name": "SpeedBoost",
-        "author": "xdev",
-        "description": "Multiplies walk speed by a configurable factor.",
-        "version": "1.2.0",
-        "downloadUrl": "https://github.com/BGFXTeam/hub/raw/refs/heads/master/files/scripts/SpeedBoost.lua",
+        "id": "adpanelteam",
+        "name": "AdPanelTeam",
+        "author": "AdPanelTeam",
+        "description": "The first mobile panel of bg",
+        "version": "1.0.0",
+        "downloadUrl": "https://github.com/BGFXTeam/hub/raw/refs/heads/master/files/scripts/AdPanelTeam.lua",
         "screenshots": [
             "https://raw.githubusercontent.com/BGFXTeam/hub/refs/heads/main/static/ss1.png"
         ],
-        "tags": [
-            "movement",
-            "utility"
-        ],
-        "downloads": 1240,
-        "updatedAt": "2025-11-01"
+        "tags": [],
+        "downloads": 0,
+        "updatedAt": "2026-5-27"
     },
 
     {
-        "id": "script_002",
-        "name": "ESP",
-        "author": "znfdev",
-        "description": "Simple ESP overlay.",
+        "id": "majimalikm7md",
+        "name": "MalikBG Modified m7md Panel",
+        "author": "Maji Malik BG",
+        "description": "A creation of m7md panel which is modded by Maji Malik BG.",
         "version": "2.0.1",
-        "downloadUrl": "https://github.com/BGFXTeam/hub/raw/refs/heads/master/files/scripts/ESP.lua",
+        "downloadUrl": "https://github.com/BGFXTeam/hub/raw/refs/heads/master/files/scripts/m7md.lua",
         "screenshots": [],
-        "tags": [
-            "visual",
-            "combat"
-        ],
-        "downloads": 845,
-        "updatedAt": "2025-12-10"
+        "tags": [],
+        "downloads": 0,
+        "updatedAt": "2026-5-27"
     }
 ]

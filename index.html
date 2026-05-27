@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>BGFX Hub</title>
+
+    <!-- Fonts & High-Density Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Plus+Jakarta+Sans:wght@500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+    <style>
+        /* CORE MATERIAL 3 VARIABLES WITH LIVE HSL INTERPOLATION */
+        :root {
+            --primary-hue: 210; /* Default Browser Blue */
+            
+            --md-sys-color-background: hsl(var(--primary-hue), 20%, 7%);
+            --md-sys-color-surface: hsl(var(--primary-hue), 16%, 11%);
+            --md-sys-color-surface-variant: hsl(var(--primary-hue), 14%, 16%);
+            --md-sys-color-primary: hsl(var(--primary-hue), 90%, 65%);
+            --md-sys-color-primary-container: hsla(var(--primary-hue), 90%, 65%, 0.1);
+            --md-sys-color-outline: hsla(var(--primary-hue), 20%, 100%, 0.05);
+            --md-sys-color-outline-variant: hsla(var(--primary-hue), 20%, 100%, 0.12);
+            
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --text-tertiary: #475569;
+            
+            --font-sans: 'Plus Jakarta Sans', sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+            --bezier-engine: cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: var(--md-sys-color-background);
+            color: var(--text-secondary);
+            font-family: var(--font-sans);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+
+        /* CHROMIUM STYLE APP HEADER RUNTIME BAR */
+        .browser-bar {
+            background: var(--md-sys-color-surface);
+            border-bottom: 1px solid var(--md-sys-color-outline);
+            padding: 10px 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .browser-top-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+        }
+
+        .browser-identity {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            min-width: 0;
+        }
+
+        .browser-identity i {
+            font-size: 16px;
+            color: var(--md-sys-color-primary);
+        }
+
+        .browser-identity h1 {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--text-primary);
+            letter-spacing: -0.01em;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .browser-actions {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* IMGUI DYNAMIC COLOR REGISTER TOOL */
+        .imgui-toolbox-node {
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--md-sys-color-outline-variant);
+            padding: 4px 8px;
+            border-radius: 4px;
+            cursor: pointer;
+            user-select: none;
+            font-family: var(--font-mono);
+            font-size: 10px;
+            color: var(--text-primary);
+        }
+
+        .imgui-color-cube {
+            width: 12px;
+            height: 12px;
+            background: var(--md-sys-color-primary);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 2px;
+        }
+
+        .imgui-panel-overlay {
+            position: absolute;
+            top: calc(100% + 8px);
+            right: 0;
+            background: #0f121a;
+            border: 1px solid #272e3f;
+            border-radius: 4px;
+            padding: 12px;
+            width: 220px;
+            display: none;
+            flex-direction: column;
+            gap: 8px;
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.6);
+            z-index: 200;
+        }
+
+        .imgui-panel-overlay.active { display: flex; }
+
+        .imgui-title {
+            font-size: 9px;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            color: var(--text-secondary);
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+            padding-bottom: 4px;
+        }
+
+        .imgui-slider-element {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 8px;
+            border-radius: 2px;
+            background: linear-gradient(to right, #ff0000, #ffff00, #00ff00, #00ffff, #0000ff, #ff00ff, #ff0000);
+            outline: none;
+            cursor: pointer;
+        }
+
+        .imgui-slider-element::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 8px;
+            height: 14px;
+            background: #ffffff;
+            border-radius: 1px;
+            border: 1px solid #000;
+            cursor: pointer;
+        }
+
+        /* BROWSER OMNIBOX ADDRESS BAR VIEW */
+        .browser-omnibox {
+            position: relative;
+            width: 100%;
+        }
+
+        .browser-omnibox i {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 14px;
+            color: var(--text-tertiary);
+            pointer-events: none;
+        }
+
+        .omnibox-input {
+            width: 100%;
+            height: 36px;
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid var(--md-sys-color-outline-variant);
+            border-radius: 6px;
+            padding: 0 12px 0 38px;
+            color: var(--text-primary);
+            font-family: inherit;
+            font-size: 13px;
+            outline: none;
+            transition: all 0.2s var(--bezier-engine);
+        }
+
+        .omnibox-input:focus {
+            border-color: var(--md-sys-color-primary);
+            background: rgba(0, 0, 0, 0.4);
+            box-shadow: 0 0 0 1px var(--md-sys-color-primary);
+        }
+
+        /* MAIN CONTENT VIEWER HUB */
+        .browser-viewport {
+            width: 100%;
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 16px;
+            flex-grow: 1;
+        }
+
+        .script-feed-engine {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        /* HIGH-PERFORMANCE WORKSPACE LAYER COMPONENT */
+        .script-card-node {
+            background: var(--md-sys-color-surface);
+            border: 1px solid var(--md-sys-color-outline);
+            border-radius: 6px;
+            overflow: hidden;
+            transition: border-color 0.15s ease, background-color 0.15s ease;
+        }
+
+        .script-card-node:hover {
+            border-color: var(--md-sys-color-outline-variant);
+            background-color: var(--md-sys-color-surface-variant);
+        }
+
+        /* COMPACT ELEMENT ROW TRIGGER BAR */
+        .card-trigger-bar {
+            width: 100%;
+            padding: 12px 14px;
+            background: transparent;
+            border: none;
+            outline: none;
+            text-align: left;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+        }
+
+        .trigger-meta-core {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            min-width: 0;
+        }
+
+        .indicator-arrow {
+            font-size: 14px;
+            color: var(--text-tertiary);
+            transition: transform 0.2s var(--bezier-engine);
+            flex-shrink: 0;
+        }
+
+        .script-card-node.expanded .indicator-arrow {
+            transform: rotate(90deg);
+            color: var(--md-sys-color-primary);
+        }
+
+        .card-identity-block { min-width: 0; }
+
+        .card-header-line {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-bottom: 2px;
+            flex-wrap: wrap;
+        }
+
+        .card-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-primary);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .card-version-tag {
+            font-family: var(--font-mono);
+            font-size: 9px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--md-sys-color-outline-variant);
+            color: var(--text-secondary);
+            padding: 0px 4px;
+            border-radius: 3px;
+        }
+
+        .card-creator {
+            font-size: 11px;
+            color: var(--text-tertiary);
+        }
+
+        .card-creator span { color: var(--text-secondary); }
+
+        .card-quick-metrics {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-shrink: 0;
+        }
+
+        .metric-pill {
+            font-family: var(--font-mono);
+            font-size: 10.5px;
+            color: var(--text-tertiary);
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        /* SLIDER DRAWER CONTAINER EXECUTOR BLOCK */
+        .card-drawer-tray {
+            display: grid;
+            grid-template-rows: 0fr;
+            transition: grid-template-rows 0.22s var(--bezier-engine);
+            will-change: grid-template-rows;
+        }
+
+        .script-card-node.expanded .card-drawer-tray {
+            grid-template-rows: 1fr;
+        }
+
+        .drawer-shield { overflow: hidden; }
+
+        .drawer-inner-layout {
+            padding: 4px 14px 14px 14px;
+            border-top: 1px solid rgba(255, 255, 255, 0.02);
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        /* MEDIA DISPLAY SCREENSHOT RIG */
+        .preview-viewport {
+            width: 100%;
+            height: 150px;
+            background: #06080c;
+            border: 1px solid var(--md-sys-color-outline);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .preview-viewport img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .preview-empty-state {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            color: rgba(255, 255, 255, 0.02);
+        }
+
+        .description-terminal-box {
+            font-size: 11.5px;
+            line-height: 1.5;
+            color: var(--text-secondary);
+            background: rgba(0, 0, 0, 0.15);
+            padding: 10px;
+            border-radius: 4px;
+            border-left: 2px solid var(--md-sys-color-primary);
+            word-break: break-word;
+        }
+
+        /* DOCK ACTION CONTROL INTERFACE PILLS */
+        .drawer-action-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .system-fingerprint {
+            font-family: var(--font-mono);
+            font-size: 9px;
+            color: var(--text-tertiary);
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .button-action-cluster {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            width: 100%;
+        }
+
+        .action-control-btn {
+            height: 34px;
+            padding: 0 12px;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--md-sys-color-outline-variant);
+            border-radius: 4px;
+            color: var(--text-primary);
+            font-family: inherit;
+            font-size: 12px;
+            font-weight: 500;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            text-decoration: none;
+            flex: 1;
+            transition: background 0.12s ease, border-color 0.12s ease;
+        }
+
+        .action-control-btn:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .action-control-btn.accentuated {
+            background: var(--md-sys-color-primary);
+            border-color: transparent;
+            color: var(--md-sys-color-background);
+            font-weight: 600;
+        }
+
+        /* STATUS CODES GRAPH PANEL BACKGROUNDS */
+        .status-terminal-panel {
+            padding: 80px 0;
+            text-align: center;
+            width: 100%;
+        }
+
+        .status-terminal-panel i {
+            font-size: 20px;
+            color: var(--text-tertiary);
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .status-terminal-panel p {
+            font-family: var(--font-mono);
+            font-size: 11px;
+            color: var(--text-tertiary);
+        }
+
+        .spin-loader-element {
+            animation: loopRotation 0.8s linear infinite;
+        }
+
+        @keyframes loopRotation {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* ADVANCED DESKTOP SCALE COMPENSATION RULES */
+        @media (min-width: 600px) {
+            .browser-bar {
+                flex-direction: row;
+                height: 56px;
+                padding: 0 24px;
+                align-items: center;
+            }
+            .browser-omnibox {
+                width: 280px;
+            }
+            .browser-viewport {
+                padding: 24px;
+            }
+            .card-trigger-bar {
+                padding: 14px 20px;
+            }
+            .drawer-inner-layout {
+                padding: 4px 20px 20px 20px;
+                gap: 16px;
+            }
+            .button-action-cluster {
+                width: auto;
+            }
+            .action-control-btn {
+                flex: none;
+                height: 32px;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .card-quick-metrics { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- CHROMIUM APP LAYER CONTROLLER -->
+<header class="browser-bar">
+    <div class="browser-top-row">
+        <div class="browser-identity">
+            <i class="ri-terminal-window-fill"></i>
+            <h1>BGFX Hub</h1>
+        </div>
+        
+        <div class="browser-actions">
+            <!-- IMGUI CONSOLE TUNER FIELD -->
+            <div class="imgui-toolbox-node" id="imgui-trigger">
+                <div class="imgui-color-cube"></div>
+                <span>M3_Hue</span>
+                
+                <div class="imgui-panel-overlay" id="imgui-panel">
+                    <span class="imgui-title">Color Configuration</span>
+                    <input type="range" class="imgui-slider-element" id="hue-slider" min="0" max="360" value="210">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="browser-omnibox">
+        <i class="ri-global-line"></i>
+        <input id="search" class="omnibox-input" type="text" placeholder="Search master directory records..." autocomplete="off">
+    </div>
+</header>
+
+<!-- APPLICATION RUNTIME CONTENT CANVAS -->
+<main class="browser-viewport">
+    <div class="script-feed-engine" id="grid">
+        <div class="status-terminal-panel">
+            <i class="ri-loader-5-line spin-loader-element"></i>
+            <p>Initializing core index map buffer...</p>
+        </div>
+    </div>
+</main>
+
+<script>
+const API_URL = "http://localhost:8000/scripts.json";
+const grid = document.getElementById("grid");
+const search = document.getElementById("search");
+
+// ImGui Custom Live Variable Driver Logic
+const imguiTrigger = document.getElementById('imgui-trigger');
+const imguiPanel = document.getElementById('imgui-panel');
+const hueSlider = document.getElementById('hue-slider');
+
+imguiTrigger.addEventListener('click', (e) => {
+    if (e.target.closest('#imgui-panel')) return; 
+    imguiPanel.classList.toggle('active');
+});
+
+document.addEventListener('click', (e) => {
+    if (!imguiTrigger.contains(e.target)) {
+        imguiPanel.classList.remove('active');
+    }
+});
+
+hueSlider.addEventListener('input', (e) => {
+    document.documentElement.style.setProperty('--primary-hue', e.target.value);
+});
+
+let scripts = [];
+
+async function loadScripts() {
+    try {
+        const res = await fetch(API_URL);
+        scripts = await res.json();
+        renderScripts(scripts);
+    } catch (err) {
+        grid.innerHTML = `
+            <div class="status-terminal-panel">
+                <i class="ri-door-lock-fill"></i>
+                <p>CONNECTION_ERROR: Failed to fetch local script manifest.</p>
+            </div>
+        `;
+        console.error(err);
+    }
+}
+
+function renderScripts(data) {
+    if (!data.length) {
+        grid.innerHTML = `
+            <div class="status-terminal-panel">
+                <i class="ri-filter-2-line"></i>
+                <p>NULL_RESULT: No indexes match the current criteria.</p>
+            </div>
+        `;
+        return;
+    }
+
+    grid.innerHTML = data.map(script => {
+        const imageDOM = script.screenshots && script.screenshots.length
+            ? `<img src="${script.screenshots[0]}" alt="${script.name}" loading="lazy">`
+            : `<div class="preview-empty-state"><i class="ri-image-2-line"></i></div>`;
+
+        return `
+            <div class="script-card-node" id="node-${script.id}">
+                <button class="card-trigger-bar" onclick="toggleCardAccordion('${script.id}')">
+                    <div class="trigger-meta-core">
+                        <i class="ri-arrow-right-s-line indicator-arrow"></i>
+                        <div class="card-identity-block">
+                            <div class="card-header-line">
+                                <span class="card-title">${script.name}</span>
+                                <span class="card-version-tag">v${script.version}</span>
+                            </div>
+                            <div class="card-creator">made by <span>${script.author}</span></div>
+                        </div>
+                    </div>
+                    
+                    <div class="card-quick-metrics">
+                        <div class="metric-pill"><i class="ri-download-2-line"></i> ${script.downloads}</div>
+                        <div class="metric-pill"><i class="ri-history-line"></i> ${script.updatedAt}</div>
+                    </div>
+                </button>
+
+                <div class="card-drawer-tray">
+                    <div class="drawer-shield">
+                        <div class="drawer-inner-layout">
+                            <div class="preview-viewport">
+                                ${imageDOM}
+                            </div>
+                            
+                            <div class="description-terminal-box">
+                                ${script.description}
+                            </div>
+
+                            <div class="drawer-action-footer">
+                                <div class="system-fingerprint">
+                                    <i class="fa-solid fa-fingerprint"></i> ID: ${script.id}
+                                </div>
+                                <div class="button-action-cluster">
+                                    <a href="${script.downloadUrl}" class="action-control-btn accentuated" target="_blank" rel="noopener">
+                                        <i class="ri-download-cloud-line"></i> Download
+                                    </a>
+                                    <button class="action-control-btn" onclick="copyLinkBuffer(this, '${script.downloadUrl}')">
+                                        <i class="ri-link"></i> Copy Link
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+    }).join("");
+}
+
+function toggleCardAccordion(id) {
+    const activeCard = document.getElementById(`node-${id}`);
+    const isCurrentlyExpanded = activeCard.classList.contains('expanded');
+    
+    document.querySelectorAll('.script-card-node').forEach(node => {
+        node.classList.remove('expanded');
+    });
+    
+    if (!isCurrentlyExpanded) {
+        activeCard.classList.add('expanded');
+    }
+}
+
+function copyLinkBuffer(btn, text) {
+    navigator.clipboard.writeText(text).then(() => {
+        const structuralBackup = btn.innerHTML;
+        btn.innerHTML = `<i class="ri-check-line" style="color: var(--md-sys-color-primary)"></i> Copied`;
+        btn.style.borderColor = "var(--md-sys-color-primary)";
+        
+        setTimeout(() => {
+            btn.innerHTML = structuralBackup;
+            btn.style.borderColor = "";
+        }, 1200);
+    });
+}
+
+search.addEventListener("input", () => {
+    const query = search.value.toLowerCase().trim();
+    const filtered = scripts.filter(script => 
+        script.name.toLowerCase().includes(query) ||
+        script.author.toLowerCase().includes(query) ||
+        script.description.toLowerCase().includes(query)
+    );
+    renderScripts(filtered);
+});
+
+loadScripts();
+</script>
+
+</body>
+</html>
