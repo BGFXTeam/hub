@@ -5,7 +5,7 @@
         "author": "AdPanelTeam",
         "description": "The first mobile panel of bg",
         "version": "1.0.0",
-        "downloadUrl": "https://github.com/BGFXTeam/hub/raw/refs/heads/master/files/scripts/AdPanelTeam.lua",
+        "downloadUrl": "https://raw.githubusercontent.com/BGFXTeam/hub/refs/heads/main/scripts/AdPanelTeam.lua",
         "screenshots": [
             "https://raw.githubusercontent.com/BGFXTeam/hub/refs/heads/main/static/ss1.png"
         ],
@@ -20,7 +20,7 @@
         "author": "Maji Malik BG",
         "description": "A creation of m7md panel which is modded by Maji Malik BG.",
         "version": "2.0.1",
-        "downloadUrl": "https://github.com/BGFXTeam/hub/raw/refs/heads/master/files/scripts/m7md.lua",
+        "downloadUrl": "https://raw.githubusercontent.com/BGFXTeam/hub/refs/heads/main/scripts/m7md.lua",
         "screenshots": [],
         "tags": [],
         "downloads": 0,
