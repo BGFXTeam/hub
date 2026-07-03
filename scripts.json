@@ -21,7 +21,9 @@
         "description": "A creation of m7md panel which is modded by Maji Malik BG.",
         "version": "2.0.1",
         "downloadUrl": "https://raw.githubusercontent.com/BGFXTeam/hub/refs/heads/main/scripts/m7md.lua",
-        "screenshots": [],
+        "screenshots": [
+            "https://raw.githubusercontent.com/BGFXTeam/hub/refs/heads/main/static/malikm7md.jpg"
+        ],
         "tags": [],
         "downloads": 0,
         "updatedAt": "2026-5-27"

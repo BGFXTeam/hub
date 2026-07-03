@@ -1,0 +1,40 @@
+[
+    {
+        "id": "exampleplugin",
+        "name": "ExamplePlugin",
+        "author": "ZNFDev",
+        "description": "A example BGFX plugin.",
+        "version": "1.0.0",
+        "screenshots": [
+            "https://raw.githubusercontent.com/BGFXTeam/hub/refs/heads/main/static/exampleplugin.jpg"
+        ],
+        "tags": [
+            "utility"
+        ],
+        "downloads": 0,
+        "updatedAt": "2026-07-03",
+        "main": "com.example.bgfx.plugin.ExamplePlugin",
+        "hasLibrary": false,
+        "dexLink": "https://raw.githubusercontent.com/BGFXTeam/hub/refs/heads/main/plugins/ExamplePlugin.dex",
+        "libraryLink": ""
+    },
+    {
+        "id": "exampleclient",
+        "name": "ExampleClient",
+        "author": "ZNFDev",
+        "description": "A example BGFX client.",
+        "version": "1.0.0",
+        "screenshots": [
+            "https://raw.githubusercontent.com/BGFXTeam/hub/refs/heads/main/static/exampleclient.jpg"
+        ],
+        "tags": [
+            "client"
+        ],
+        "downloads": 0,
+        "updatedAt": "2026-07-03",
+        "main": "com.example.bgfx.client.ExampleClient",
+        "hasLibrary": false,
+        "dexLink": "https://raw.githubusercontent.com/BGFXTeam/hub/refs/heads/main/plugins/ExampleClient.dex",
+        "libraryLink": ""
+    }
+]
