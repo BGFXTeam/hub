@@ -36,5 +36,24 @@
         "hasLibrary": false,
         "dexLink": "https://raw.githubusercontent.com/BGFXTeam/hub/refs/heads/main/plugins/ExampleClient.dex",
         "libraryLink": ""
+    },
+    {
+        "id": "dupeutils",
+        "name": "DupeUtils",
+        "author": "ZNFDev",
+        "description": "A Duplication Utility Mod",
+        "version": "1.0.0",
+        "screenshots": [
+            "https://raw.githubusercontent.com/BGFXTeam/hub/refs/heads/main/static/dupeutils.jpg"
+        ],
+        "tags": [
+            "dupe"
+        ],
+        "downloads": 0,
+        "updatedAt": "2026-07-03",
+        "main": "com.example.bgfx.mod.ExampleMod",
+        "hasLibrary": true,
+        "dexLink": "https://raw.githubusercontent.com/BGFXTeam/hub/refs/heads/main/plugins/DupeUtils.dex",
+        "libraryLink": "https://raw.githubusercontent.com/BGFXTeam/hub/refs/heads/main/plugins/libs/libDupeUtils.so"
     }
 ]
