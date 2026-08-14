@@ -55,5 +55,25 @@
         "hasLibrary": true,
         "dexLink": "https://raw.githubusercontent.com/BGFXTeam/hub/refs/heads/main/plugins/DupeUtils.dex",
         "libraryLink": "https://raw.githubusercontent.com/BGFXTeam/hub/refs/heads/main/plugins/libs/libDupeUtils.so"
+    },
+    {
+        "id": "zevhax",
+        "name": "ZevHax",
+        "author": "ZNFDev",
+        "description": "A Cheat Client For Blockman Go",
+        "version": "1.0.0",
+        "screenshots": [
+            "https://raw.githubusercontent.com/BGFXTeam/hub/refs/heads/main/static/zevhax.jpg"
+        ],
+        "tags": [
+            "cheat",
+            "client"
+        ],
+        "downloads": 0,
+        "updatedAt": "2026-08-14",
+        "main": "com.znfdev.zevhax.ZevHax",
+        "hasLibrary": true,
+        "dexLink": "https://raw.githubusercontent.com/BGFXTeam/hub/refs/heads/main/plugins/ZevHax.dex",
+        "libraryLink": "https://raw.githubusercontent.com/BGFXTeam/hub/refs/heads/main/plugins/libs/libZevHax.so"
     }
 ]
