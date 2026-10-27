@@ -1,0 +1,18 @@
+{
+    "isBGFXActive": true,
+    "bgfxLink": "https://znfdev.fun/bgfx",
+    "bgfxMgrLink": "https://znfdev.fun/bgfx",
+    "bgfxApi": "https://znfdev.fun:3000/",
+    "isApiActive": false,
+    "keyUrl": "KEYYYYY",
+    "versionInfo": {
+        "versionCode": -106,
+        "versionName": "0.6",
+        "versionLabel": "alpha"
+    },
+    "notice": {
+        "isActive": true,
+        "data": "BGFX is now active",
+        "isMarkDown": false
+    }
+}
