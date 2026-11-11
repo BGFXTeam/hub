@@ -1,7 +1,7 @@
 [
     {
         "name": "Blockman: BGFX",
-        "version": "0.0.6",
+        "version": "0.6",
         "versionCode": -106,
         "link": "https://google.com",
         "package": "com.sandboxol.blockymods.channel.official"
@@ -15,8 +15,8 @@
     },
     {
         "name": "BGFX Manager",
-        "version": "1.0.1",
-        "versionCode": 101,
+        "version": "1.0.2",
+        "versionCode": 102,
         "link": "https://google.com",
         "package": "com.znfdev.bgfxmanager"
     }
