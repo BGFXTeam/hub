@@ -3,21 +3,21 @@
         "name": "Blockman: BGFX",
         "version": "0.6",
         "versionCode": -106,
-        "link": "https://google.com",
+        "link": "https://linkpays.in/blockmanbgfx",
         "package": "com.sandboxol.blockymods.channel.official"
     },
     {
         "name": "BGFX",
         "version": "1.0",
         "versionCode": 1,
-        "link": "https://google.com",
+        "link": "https://linkpays.in/bgfx",
         "package": "com.znfdev.zevwidgets"
     },
     {
         "name": "BGFX Manager",
         "version": "1.0.2",
         "versionCode": 102,
-        "link": "https://google.com",
+        "link": "https://linkpays.in/bgfxmanager",
         "package": "com.znfdev.bgfxmanager"
     }
 ]
