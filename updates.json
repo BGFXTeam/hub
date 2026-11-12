@@ -15,8 +15,8 @@
     },
     {
         "name": "BGFX Manager",
-        "version": "1.0.2",
-        "versionCode": 102,
+        "version": "1.0.3",
+        "versionCode": 103,
         "link": "https://linkpays.in/bgfxmanager",
         "package": "com.znfdev.bgfxmanager"
     }
