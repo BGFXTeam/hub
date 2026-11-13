@@ -42,7 +42,7 @@
         "name": "DupeUtils",
         "author": "ZNFDev",
         "description": "A Duplication Utility Mod",
-        "version": "1.0.0",
+        "version": "1.0.1",
         "screenshots": [
             "https://raw.githubusercontent.com/BGFXTeam/hub/refs/heads/main/static/dupeutils.jpg"
         ],
@@ -50,8 +50,8 @@
             "dupe"
         ],
         "downloads": 0,
-        "updatedAt": "2026-07-03",
-        "main": "com.example.bgfx.mod.ExampleMod",
+        "updatedAt": "2026-11-13",
+        "main": "com.example.bgfx.dupeutils.DupeUtils",
         "hasLibrary": true,
         "dexLink": "https://raw.githubusercontent.com/BGFXTeam/hub/refs/heads/main/plugins/DupeUtils.dex",
         "libraryLink": "https://raw.githubusercontent.com/BGFXTeam/hub/refs/heads/main/plugins/libs/libDupeUtils.so"
